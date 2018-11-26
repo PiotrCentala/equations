@@ -1,0 +1,48 @@
+from IPython.display import Math, display
+import sympy as s
+
+def funkcja(equation,a,nazwa,acc,unit='',pref=''):
+    try:
+        a_st=[]
+        for e,i in enumerate(a):
+            a_st.append(str(i))   
+        a_s=s.symbols(nazwa)
+        expr=s.sympify(equation)
+        lista_1=[]
+        for e,i in enumerate(a_s):
+            lista_1.append([i,a_st[e]])
+        #print(lista_1)
+        wynik=expr.subs(lista_1)
+        lista_2=[]
+        for e,i in enumerate(a_s):
+            lista_2.append([i,a[e]])
+        wynik_k=expr.subs(lista_2)
+        c=wynik_k.evalf(acc)
+
+        f=s.Eq(expr,wynik)
+        slowo=''
+        slowo='$'
+        slowo+=pref
+        slowo+=s.latex(expr)
+        slowo+='='
+        slowo+=s.latex(wynik)
+        #slowo+=s.latex(f)
+        slowo+='='
+        slowo+=s.latex(c)
+        slowo+=unit
+        slowo+=2*chr(92)
+        slowo+='$'
+
+        display(Math(slowo))
+        return c 
+    except Exception as e:
+        print("sprobuj jeszcze raz ",e)
+   
+#s=sympy.Eq(a, a.doit())
+#print(sympy.latex(sympy.Eq(sympy.Integral(x,x), x**2/2)))
+#print (sympy.latex(sympy.Integral(x**2+sympy.sin(x)*sympy.exp(x**2),x)))
+#z=sympy.Integral(x,(x,1,2))
+
+
+
+
